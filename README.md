@@ -1,97 +1,126 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# VerbaGlove Mobile App
 
-# Getting Started
+This is the official React Native mobile application for the **VerbaGlove Project**. The app connects to an **ESP32 microcontroller via Bluetooth Low Energy (BLE)** and translates gesture inputs to text and speech using **Text-to-Speech (TTS)** functionality.
 
-> **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
+## 📌 Supported Platforms
+- **Android Only** (Currently, the app is designed for Android devices. iOS support may be added in the future.)
 
-## Step 1: Start Metro
+## 📌 Features
+- Scan for BLE devices and connect to ESP32 (VerbaGlove).
+- Display received gesture letters in real-time.
+- Speech playback of recognized gestures using TTS.
+- Pause/Resume functionality for text display and speech.
 
-First, you will need to run **Metro**, the JavaScript build tool for React Native.
+---
 
-To start the Metro dev server, run the following command from the root of your React Native project:
-
-```sh
-# Using npm
-npm start
-
-# OR using Yarn
-yarn start
+## 📁 Project Structure
+```
+📂 VerbaGlove-App
+│
+├── 📁 node_modules
+├── 📁 android
+├── 📁 ios
+├── 📁 screens
+│   ├── BLEScanner.tsx
+│   └── HomeScreen.tsx
+├── App.tsx
+├── navigation.tsx
+├── package.json
+├── README.md
+├── tsconfig.json
+├── react-native.config.js
+└── ...
 ```
 
-## Step 2: Build and run your app
+---
 
-With Metro running, open a new terminal window/pane from the root of your React Native project, and use one of the following commands to build and run your Android or iOS app:
+## 📦 Dependencies
+Ensure you have these dependencies installed:
 
-### Android
-
-```sh
-# Using npm
-npm run android
-
-# OR using Yarn
-yarn android
+```bash
+npm install react-native-ble-plx
+npm install react-native-quick-base64
+npm install @react-navigation/native @react-navigation/stack
+npm install react-native-vector-icons
+npm install react-native-tts
 ```
 
-### iOS
-
-For iOS, remember to install CocoaPods dependencies (this only needs to be run on first clone or after updating native deps).
-
-The first time you create a new project, run the Ruby bundler to install CocoaPods itself:
-
-```sh
-bundle install
+Additionally, you need to link the dependencies:
+```bash
+npx react-native link
 ```
 
-Then, and every time you update your native dependencies, run:
+---
 
-```sh
-bundle exec pod install
+## 🔧 Installation
+1. **Clone the repository:**
+```bash
+git clone <your-repo-url>
 ```
 
-For more information, please visit [CocoaPods Getting Started guide](https://guides.cocoapods.org/using/getting-started.html).
-
-```sh
-# Using npm
-npm run ios
-
-# OR using Yarn
-yarn ios
+2. **Navigate to the project directory:**
+```bash
+cd VerbaGlove-App
 ```
 
-If everything is set up correctly, you should see your new app running in the Android Emulator, iOS Simulator, or your connected device.
+3. **Install dependencies:**
+```bash
+npm install
+```
 
-This is one way to run your app — you can also build it directly from Android Studio or Xcode.
+4. **Start Metro bundler:**
+```bash
+npx react-native start
+```
 
-## Step 3: Modify your app
+5. **Run the app on Android:**
+```bash
+npx react-native run-android
+```
 
-Now that you have successfully run the app, let's make changes!
+---
 
-Open `App.tsx` in your text editor of choice and make some changes. When you save, your app will automatically update and reflect these changes — this is powered by [Fast Refresh](https://reactnative.dev/docs/fast-refresh).
+## 📲 Permissions (Android)
+Add the following permissions to your `AndroidManifest.xml` file:
+```xml
+<uses-permission android:name="android.permission.BLUETOOTH" />
+<uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+<uses-permission android:name="android.permission.BLUETOOTH_SCAN" />
+<uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
+<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+```
 
-When you want to forcefully reload, for example to reset the state of your app, you can perform a full reload:
+---
 
-- **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Dev Menu**, accessed via <kbd>Ctrl</kbd> + <kbd>M</kbd> (Windows/Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (macOS).
-- **iOS**: Press <kbd>R</kbd> in iOS Simulator.
+## 🚀 Usage
+1. Make sure your **ESP32 is powered on and advertising**.
+2. Launch the app.
+3. Click the "Scan for Devices" button to detect your ESP32.
+4. Connect to the device when it appears.
+5. The app will display recognized gestures and allow you to listen to them by pressing the "Speech" button.
 
-## Congratulations! :tada:
+---
 
-You've successfully run and modified your React Native App. :partying_face:
+## 🔑 Important Points
+- Ensure the UUIDs in your ESP32 code and React Native app match.
+- Make sure your **ESP32 is broadcasting using the same UUIDs as defined in your app** (`SERVICE_UUID`, `RX_CHARACTERISTIC_UUID`, `TX_CHARACTERISTIC_UUID`).
+- Use **nRF Connect App** or **LightBlue App** to debug and test your BLE connection.
 
-### Now what?
+---
 
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [docs](https://reactnative.dev/docs/getting-started).
+## 📚 Resources
+- [React Native BLE PLX Documentation](https://github.com/dotintent/react-native-ble-plx)
+- [react-native-tts Documentation](https://github.com/ak1394/react-native-tts)
+- [Nordic UART Service (NUS)](https://infocenter.nordicsemi.com/index.jsp)
 
-# Troubleshooting
+---
 
-If you're having issues getting the above steps to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
+## 💡 Future Improvements
+- Improve UI/UX for better accessibility.
+- Implement custom UUIDs if necessary.
+- Include it for IOS devices. 
 
-# Learn More
 
-To learn more about React Native, take a look at the following resources:
 
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+
+
