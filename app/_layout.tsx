@@ -6,7 +6,7 @@ import { StatusBar } from 'expo-status-bar';
 import { useEffect } from 'react';
 import 'react-native-reanimated';
 
-import { useColorScheme } from '@/hooks/useColorScheme';
+import { useColorScheme } from '../hooks/useColorScheme';
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -16,15 +16,19 @@ export default function RootLayout() {
   const [loaded] = useFonts({
     SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
   });
+  console.log("Font load status:", loaded);
 
   useEffect(() => {
+    console.log("Fonts loaded? ", loaded);
     if (loaded) {
       SplashScreen.hideAsync();
     }
   }, [loaded]);
 
   if (!loaded) {
-    return null;
+    //  return null;
+    console.log("Fonts not loaded yet, forcing splash hide");
+    SplashScreen.hideAsync();
   }
 
   return (
